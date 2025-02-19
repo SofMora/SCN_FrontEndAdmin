@@ -1,1 +1,15 @@
-<p>home works!</p>
+<div class="home-container">
+    <h1>Welcome to the Admin Dashboard</h1>
+    <p class="intro">
+      As an administrator, you have access to manage different aspects of the system. Use the sections below to navigate to specific management areas.
+    </p>
+  
+    <div class="sections">
+      <div class="section-card" *ngFor="let section of sections">
+        <h3>{{ section.title }}</h3>
+        <p>{{ section.description }}</p>
+        <button (click)="navigateTo(section.path)">Go to {{ section.title }}</button>
+      </div>
+    </div>
+  </div>
+  

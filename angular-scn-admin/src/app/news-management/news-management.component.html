@@ -1,1 +1,26 @@
-<p>news-management works!</p>
+<div class="news-container">
+    <h2>News Management</h2>
+  
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Subject</th>
+          <th>Description</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let news of newsList">
+          <td>{{ news.id }}</td>
+          <td>{{ news.subject }}</td>
+          <td>{{ news.description }}</td>
+          <td>
+            <button (click)="authorizeNews(news.id)" class="authorize-button">Authorize</button>
+            <button (click)="rejectNews(news.id)" class="reject-button">Reject</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

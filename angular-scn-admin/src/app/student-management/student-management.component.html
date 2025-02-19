@@ -1,1 +1,47 @@
-<p>student-management works!</p>
+<div class="student-table-container">
+  <h2>Student Management</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>User Name</th>
+        <th>Password</th>
+        <th>Photo</th>
+        <th>Social Links</th>
+        <th>Status</th>
+        <th>Actions</th> 
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let student of students">
+        <td>{{ student.id }}</td>
+        <td>{{ student.name }}</td>
+        <td>{{ student.lastname }}</td>
+        <td>{{ student.email }}</td>
+        <td>{{ student.username }}</td>
+        <td>{{ student.password }}</td>
+        <td>
+          <img *ngIf="student.photo" [src]="student.photo" alt="Photo" width="50" height="50">
+        </td>
+        <td>
+          <ul *ngIf="student.sociallinks">
+            <li *ngFor="let link of student.sociallinks">
+              <a [href]="link" target="_blank">{{ link }}</a>
+            </li>
+          </ul>
+        </td>
+        <td>{{ student.status }}</td>
+        <td> 
+          <button (click)="acceptStudent(student.id)">Accept</button>
+          <button (click)="rejectStudent(student.id)">Reject</button>
+        </td>
+      </tr>
+      <tr *ngIf="students.length === 0">
+        <td colspan="10">No Students Found</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
