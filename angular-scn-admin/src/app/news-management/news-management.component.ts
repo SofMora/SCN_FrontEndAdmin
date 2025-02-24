@@ -36,9 +36,7 @@ export class NewsManagementComponent implements OnInit {
 
 
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
-
-
+    this.loadNews();
   }
 
   editNews(news: any) {
@@ -51,45 +49,68 @@ export class NewsManagementComponent implements OnInit {
 
   deleteNews(id: number) {
     this.httpProvider.deleteNewsById(id).subscribe(() => {
-      this.newsList = this.newsList.filter(n => n.id !== id);
+      this.loadNews();
     }, (error) => {
       console.error('Error deleting news:', error);
     });
   }
 
-  saveNews() { 
-    const formData = new FormData();
-    formData.append('title',this.newsForm.get("title")?.value);
-    formData.append('author',this.author.toString());
-    formData.append('textNews', this.newsForm.get("content")?.value);
-    formData.append('dateNews',this.dateNews);
-    formData.append('typeNews',this.typeNews.toString());
-
-
-    if(this.image){
-      formData.append("image", this.image);
+  saveNews() {
+    const newsData = {
+      title: this.newsForm.get("title")?.value,
+      author: this.author.toString(),
+      textNews: this.newsForm.get("content")?.value,
+      dateNews: this.dateNews,
+      typeNews: this.typeNews.toString(),
+      image: null as string | null // Aquí guardaremos la imagen en Base64
+    };
+  
+    if (this.image) {
+      const reader = new FileReader();
+      reader.readAsDataURL(this.image); // Convertir a Base64
+      reader.onload = () => {
+        newsData.image = newsData.image = reader.result as string; // La imagen en Base64
+        this.enviarNoticia(newsData);
+        
+      };
+    } else {
+      this.enviarNoticia(newsData);
     }
-
-    console.log(formData);
-    this.httpProvider.saveNews(formData).subscribe(
+  }
+  
+  enviarNoticia(newsData: any) {
+    this.httpProvider.saveNews(newsData).subscribe(
       (data: any) => {
-        if (data?.body?.isSuccess) {
-          console.log('Noticia agregado correctamente.');
-          
+        console.log("Respuesta del servidor:", data);
+        if (data?.isSuccess) {
+          console.log('Noticia agregada correctamente.');
+          this.loadNews();
         }
       },
       (error) => {
         console.error('Error al agregar la noticia', error);
       }
-    );  
-
+    );
   }
 
-  onImageUpload(event: any) {
-    const file = event.target.files[0];
-      if (file) {
-        this.image = file;
+  async loadNews() {
+    this.httpProvider.getAllNews().subscribe(
+      (data) => {
+        console.log(data);
+        this.newsList = data.body; // Asegúrate de asignar el array
+        console.log('Noticias obtenidas:', this.newsList);
+      },
+      (error) => {
+        console.error('Error al cargar noticias:', error);
       }
+    );
+  }
+
+
+  onImageUpload(event: any) {
+    if (event.target.files.length > 0) {
+      this.image = event.target.files[0];
+    }
   }
 
  

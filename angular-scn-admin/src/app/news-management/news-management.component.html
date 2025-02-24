@@ -21,22 +21,25 @@
   <table class="news-table">
     <thead>
       <tr>
+        <th>Id</th>
         <th>Title</th>
         <th>Content</th>
+        <th>Date</th>
         <th>Image</th>
-        <th>File</th>
         <th>Actions</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let news of newsList">
+        <td>{{ news.id }}</td>
         <td>{{ news.title }}</td>
-        <td>{{ news.content }}</td>
+        <td>{{ news.textNews }}</td>
+        <td>{{ news.dateNews }}</td>
         <td>
-          <img *ngIf="news.image" [src]="news.image" alt="News image" class="thumbnail">
-        </td>
-        <td>
-          <a *ngIf="news.file" [href]="news.file" download>Download</a>
+          <!-- Mostrar la imagen solo si no es null -->
+          <img *ngIf="news.image" [src]="news.image" alt="news image" width="100" height="100" />
+          <!-- Si no hay imagen, mostrar un texto o imagen predeterminada -->
+          <span *ngIf="!news.image">No image available</span>
         </td>
         <td>
           <button class="edit-btn" (click)="editNews(news)">✏ Edite</button>

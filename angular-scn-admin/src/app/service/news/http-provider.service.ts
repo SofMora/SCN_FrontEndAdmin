@@ -27,7 +27,7 @@ export class HttpProviderService {
   }
 
   public deleteNewsById(model: any): Observable<any> {
-    return this.webApiService.get(httpLink.deleteNewsById + '/' + model );
+    return this.webApiService.post1(httpLink.deleteNewsById + '/' + model,"" );
   }
 
   public getNewsDetailById(model: any): Observable<any> {

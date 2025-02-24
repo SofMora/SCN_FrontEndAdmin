@@ -41,6 +41,21 @@ export class WebApiService {
   // Param 2 : url
   // Param 3 : model
   post(url: string, model: any): Observable<any> {
+
+    if (model instanceof FormData) {
+      return this.httpClient.post(url, model, { observe: "response" as 'body' });
+    } else {
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json'
+        }),
+        observe: "response" as 'body'
+      };
+      return this.httpClient.post(url, model, httpOptions);
+    }
+  }
+
+  post1(url: string, model: any): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -57,6 +72,7 @@ export class WebApiService {
         catchError(this.handleError)
       );
   }
+
 
 
   private ReturnResponseData(response: any) {
