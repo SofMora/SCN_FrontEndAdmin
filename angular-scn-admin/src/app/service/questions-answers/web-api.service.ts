@@ -35,7 +35,7 @@ export class WebApiService {
   }
 
 
-  post(url: string, model: any): Observable<any> {
+  post(url: string, model: any, p0: { observe: string; }): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'

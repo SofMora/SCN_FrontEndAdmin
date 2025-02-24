@@ -1,56 +1,73 @@
-.news-container {
-    margin: 20px;
-    font-family: Arial, sans-serif;
+.container {
+  max-width: 800px;
+  margin: auto;
+  font-family: Arial, sans-serif;
+}
+
+.news-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  background-color: #28a745;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #218838;
+}
+
+.news-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.news-table th, .news-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.news-table th {
+  background-color: #f4f4f4;
+}
+
+.edit-btn {
+  background-color: #ffc107;
+  color: black;
+  padding: 5px;
+  margin-right: 5px;
+}
+
+.delete-btn {
+  background-color: #dc3545;
+  color: white;
+  padding: 5px;
+}
+
+.thumbnail {
+  width: 50px;
+  height: auto;
+}
+
+@media (max-width: 600px) {
+  .news-table {
+    display: block;
+    overflow-x: auto;
   }
-  
-  h2 {
-    margin-bottom: 20px;
-    text-align: center;
-  }
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-  }
-  
-  thead {
-    background-color: #f2f2f2;
-  }
-  
-  th, td {
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: center;
-  }
-  
-  th {
-    background-color: #f8f8f8;
-    font-weight: bold;
-  }
-  
-  button {
-    padding: 5px 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .authorize-button {
-    background-color: #4caf50;
-    color: white;
-  }
-  
-  .authorize-button:hover {
-    background-color: #45a049;
-  }
-  
-  .reject-button {
-    background-color: #f44336;
-    color: white;
-  }
-  
-  .reject-button:hover {
-    background-color: #e53935;
-  }
-  
+}

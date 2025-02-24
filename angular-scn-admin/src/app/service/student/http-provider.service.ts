@@ -4,7 +4,6 @@ import { WebApiService } from './web-api.service';
 
 var apiUrl = "http://localhost:8080";
 
-//var apiUrl = "http://192.168.10.10:105";
 
 var httpLink = {
   getAllStudents: apiUrl + "/api/student/getAllStudents",
@@ -28,14 +27,13 @@ export class HttpProviderService {
     return this.webApiService.get(httpLink.getPendingStudents);
   }
 
-
   public approvalStudent(model: any): Observable<any> {
-    return this.webApiService.get(httpLink.approvalStudent + '/' + model );
+    return this.webApiService.post(httpLink.approvalStudent + '/' + model, "");
   }
 
   public denegateStudent(model: any): Observable<any> {
-    return this.webApiService.get(httpLink.denegateStudent + '/' + model );
+    return this.webApiService.post(httpLink.denegateStudent + '/' + model, { statusStudent: false });
   }
 
-  
 }
+

@@ -34,7 +34,6 @@ export class WebApiService {
       );
   }
 
-
   post(url: string, model: any): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
@@ -52,7 +51,9 @@ export class WebApiService {
         catchError(this.handleError)
       );
   }
+// put
 
+// delete
 
   private ReturnResponseData(response: any) {
     return response;

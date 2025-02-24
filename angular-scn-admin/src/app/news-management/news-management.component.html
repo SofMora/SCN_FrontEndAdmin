@@ -1,26 +1,52 @@
-<div class="news-container">
-    <h2>News Management</h2>
-  
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Subject</th>
-          <th>Description</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let news of newsList">
-          <td>{{ news.id }}</td>
-          <td>{{ news.subject }}</td>
-          <td>{{ news.description }}</td>
-          <td>
-            <button (click)="authorizeNews(news.id)" class="authorize-button">Authorize</button>
-            <button (click)="rejectNews(news.id)" class="reject-button">Reject</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  
+<div class="container">
+  <h2>Academic and Career News</h2>
+  <p>Reports on academic news and career developments.</p>
+
+  <!-- Formulario de Noticias -->
+  <form [formGroup]="newsForm" (ngSubmit)="saveNews()" class="news-form">
+    <label for="title">Title</label>
+    <input type="text" id="title" formControlName="title" required>
+
+    <label for="content">Content</label>
+    <textarea id="content" formControlName="content" required></textarea>
+
+    <label for="image">Subir Imagen</label>
+    <input type="file" id="image" (change)="onImageUpload($event)">
+
+    <button type="submit" class="button">{{ selectedNews ? 'Actualizar' : 'Publicar' }} News</button>
+  </form>
+
+  <!-- Lista de Noticias -->
+  <h3>News Published</h3>
+  <table class="news-table">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Content</th>
+        <th>Image</th>
+        <th>File</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let news of newsList">
+        <td>{{ news.title }}</td>
+        <td>{{ news.content }}</td>
+        <td>
+          <img *ngIf="news.image" [src]="news.image" alt="News image" class="thumbnail">
+        </td>
+        <td>
+          <a *ngIf="news.file" [href]="news.file" download>Download</a>
+        </td>
+        <td>
+          <button class="edit-btn" (click)="editNews(news)">✏ Edite</button>
+          <button class="delete-btn" (click)="deleteNews(news.id)">🗑 Delete</button>
+        </td>
+      </tr>
+    </tbody
+    
+    >
+  </table>
+</div>
+
+

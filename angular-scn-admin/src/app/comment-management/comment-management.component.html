@@ -1,1 +1,23 @@
-<p>comment-management works!</p>
+<h2>Comments</h2>
+ <p>Review and moderate user comments.</p>
+ <table>
+    <thead>
+      <tr>
+        <th>IdNews</th>
+        <th>Comment</th>
+        <th>Action</th> 
+    </thead>
+    <tbody>
+      <tr *ngFor="let comment of comments">
+        <td>{{ comment.id }}</td>
+        <td>{{ comment.description}}</td>
+        <td> 
+          <button (click)="deleteComment(comment.id)">Delete</button>
+        </td>
+      </tr>
+      <tr *ngIf="comments.length === 0">
+        <td colspan="10">No Comments Found</td>
+      </tr>
+    </tbody>
+  </table>
+  

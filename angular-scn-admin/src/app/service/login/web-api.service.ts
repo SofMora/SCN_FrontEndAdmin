@@ -12,8 +12,6 @@ export class WebApiService {
 
   constructor(private httpClient: HttpClient) {
   }
-
-
   get(url: string): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
@@ -34,7 +32,6 @@ export class WebApiService {
       );
   }
 
-
   post(url: string, model: any): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
@@ -52,7 +49,9 @@ export class WebApiService {
         catchError(this.handleError)
       );
   }
+// put
 
+// delete
 
   private ReturnResponseData(response: any) {
     return response;
@@ -61,5 +60,5 @@ export class WebApiService {
   private handleError(error: any) {
     return throwError(error);
   }
-
+ 
 }

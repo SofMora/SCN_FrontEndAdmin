@@ -1,25 +1,16 @@
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * *                   * * * * * * * * * * * -->
-<!-- * * * * * * * * * *                       * * * * * * * * * * -->
-<!-- * * * * * * * * * *                       * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * *                           * * * * * * * * * -->
-<!-- * * * * * * *                                   * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-
 
 <mat-toolbar color="primary">
-  <button mat-icon-button *ngIf="sidenav.mode ==='over'"(click)="sidenav.toggle()">
+  <button mat-icon-button *ngIf="sidenav.mode ==='over'" (click)="sidenav.toggle()">
     <mat-icon *ngIf="!sidenav.opened">menu</mat-icon>
     <mat-icon *ngIf="sidenav.opened">close</mat-icon>
   </button>
- Administrator
+  Administrator
 </mat-toolbar>
 <mat-sidenav-container>
   <mat-sidenav>
     <mat-nav-list>
       <!-- Home -->
-      <mat-list-item (click)="sidenav.mode === 'over' && sidenav.toggle()" routerLink="/">
+      <mat-list-item (click)="sidenav.mode === 'over' && sidenav.toggle()" routerLink="/home">
         <mat-icon matListItemIcon>home</mat-icon>
         Home
       </mat-list-item>
@@ -52,6 +43,12 @@
       <mat-list-item (click)="sidenav.mode === 'over' && sidenav.toggle()" routerLink="/course">
         <mat-icon matListItemIcon>menu_book</mat-icon>
         Course
+      </mat-list-item>
+
+      <!-- Q&A -->
+      <mat-list-item (click)="sidenav.mode === 'over' && sidenav.toggle()" routerLink="/questionsAnswers">
+        <mat-icon matListItemIcon>menu_book</mat-icon>
+        Q&A
       </mat-list-item>
     </mat-nav-list>
   </mat-sidenav>

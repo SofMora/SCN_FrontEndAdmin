@@ -17,39 +17,53 @@ export class StudentManagementComponent implements OnInit {
   constructor(private router: Router, private httpProvider: HttpProviderService) { }
 
   ngOnInit(): void {
-    this.getAllStudents();
+    this.getPendingStudents();
   }
 
-  async getAllStudents() {
-    this.httpProvider.getAllStudents().subscribe((data : any) => {
-      if (data != null && data.body != null) {
-        var resultData = data.body;
-        if (resultData) {
-          this.students = resultData;
-        }
+  async getPendingStudents() {
+    this.httpProvider.getPendingStudents().subscribe((data: any) => {
+      if (data?.body) {
+        this.students = data.body;
       }
-    },
-    (error : any)=> {
-        if (error) {
-          if (error.status == 404) {
-            console.log(`error`);
-            if(error.error && error.error.message){
-              this.students = [];
-            }
-          }
-        }
-      });
+    }, (error: any) => {
+      if (error?.status === 404) {
+        console.log('Error 404: No se encontraron estudiantes.');
+        this.students = [];
+      }
+    });
   }
 
- 
-  acceptStudent(id: number): void {
-    console.log(`Accepted student with ID: ${id}`);
-    // Aquí podrías llamar a una API para actualizar el estado del estudiante
+
+  acceptStudent(studentId: number) {
+    this.httpProvider.approvalStudent(studentId).subscribe(async (data: any) => {
+      if (data?.body?.isSuccess) {
+        console.log(`Student with ID ${studentId} approved.`);
+        setTimeout(() => {
+          this.router.navigate(['/']);
+        }, 500);
+      }
+    }, async (error) => {
+      console.log(`Error approving student ${studentId}`, error);
+      setTimeout(() => {
+        this.router.navigate(['/Home']);
+      }, 500);
+    });
   }
 
-  rejectStudent(id: number): void {
-    console.log(`Rejected student with ID: ${id}`);
-    // Aquí podrías llamar a una API para actualizar el estado del estudiante
+  rejectStudent(studentId: number) {
+    this.httpProvider.denegateStudent(studentId).subscribe(async (data: any) => {
+      if (data?.body?.isSuccess) {
+        console.log(`Student with ID ${studentId} rejected.`);
+        setTimeout(() => {
+          this.router.navigate(['/']);
+        }, 500);
+      }
+    }, async (error) => {
+      console.log(`Error rejecting student ${studentId}`, error);
+      setTimeout(() => {
+        this.router.navigate(['/Home']);
+      }, 500);
+    });
   }
 }
 

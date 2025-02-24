@@ -13,7 +13,9 @@ export class WebApiService {
   constructor(private httpClient: HttpClient) {
   }
 
-
+  // Get call method
+  // Param 1 : authToken
+  // Param 2 : url
   get(url: string): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
@@ -34,7 +36,10 @@ export class WebApiService {
       );
   }
 
-
+  // Post call method
+  // Param 1 : authToken
+  // Param 2 : url
+  // Param 3 : model
   post(url: string, model: any): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({

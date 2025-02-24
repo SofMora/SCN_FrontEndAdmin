@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 
 export const routes: Routes = [
 
-    { path: '', redirectTo: 'home', pathMatch: 'full' },
+    { path: '', redirectTo: 'login', pathMatch: 'full' },
     {
       path: 'home',
       loadComponent: () =>
@@ -41,6 +41,20 @@ export const routes: Routes = [
       loadComponent: () =>
         import('./comment-management/comment-management.component').then(
           (m) => m.CommentManagementComponent
+        ),
+    },
+    {
+      path: 'questionsAnswers',
+      loadComponent: () =>
+        import('./questions-answers-management/questions-answers-management.component').then(
+          (m) => m.QuestionsAnswersManagementComponent
+        ),
+    },
+    {
+      path: 'login',
+      loadComponent: () =>
+        import('./login/login.component').then(
+          (m) => m.LoginComponent
         ),
     },
     { path: '**', redirectTo: 'home' },

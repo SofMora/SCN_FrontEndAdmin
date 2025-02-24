@@ -35,7 +35,12 @@ export class HomeComponent {
       title: 'Comments',
       description: 'Review and moderate user comments.',
       path: 'comment'
-    }
+    },
+    {
+      title: 'Q&A',
+      description: 'Answer students concerns.',
+      path: 'questionsAnswers'
+    },
   ];
 
   constructor(private router: Router) {}
