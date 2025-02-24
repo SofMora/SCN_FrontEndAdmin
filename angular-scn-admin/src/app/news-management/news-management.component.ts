@@ -16,6 +16,7 @@ export class NewsManagementComponent implements OnInit {
   newsList: any[] = [];
 
   selectedNews: any = null;
+  update:string = 'N'
 
   newsForm: FormGroup = new FormGroup({
     title: new FormControl(''),
@@ -30,6 +31,7 @@ export class NewsManagementComponent implements OnInit {
   dateNews = new Date().toISOString();
   image: File | null=null;
   typeNews:number = 1;
+  id:number = 0;
 
 
   constructor(private router: Router, private httpProvider: HttpProviderService) { }
@@ -43,8 +45,10 @@ export class NewsManagementComponent implements OnInit {
     this.selectedNews = news;
     this.newsForm.patchValue({
       title: news.title,
-      content: news.content
+      content: news.textNews,
     });
+    this.id= news.id
+    this.update = 'S';
   }
 
   deleteNews(id: number) {
@@ -56,26 +60,58 @@ export class NewsManagementComponent implements OnInit {
   }
 
   saveNews() {
-    const newsData = {
-      title: this.newsForm.get("title")?.value,
-      author: this.author.toString(),
-      textNews: this.newsForm.get("content")?.value,
-      dateNews: this.dateNews,
-      typeNews: this.typeNews.toString(),
-      image: null as string | null // Aquí guardaremos la imagen en Base64
-    };
-  
-    if (this.image) {
-      const reader = new FileReader();
-      reader.readAsDataURL(this.image); // Convertir a Base64
-      reader.onload = () => {
-        newsData.image = newsData.image = reader.result as string; // La imagen en Base64
-        this.enviarNoticia(newsData);
-        
+
+    console.log(this.update);
+    console.log(this.id);
+    if(this.update == 'N')
+    {
+      const newsData = {
+        title: this.newsForm.get("title")?.value,
+        author: this.author.toString(),
+        textNews: this.newsForm.get("content")?.value,
+        dateNews: this.dateNews,
+        typeNews: this.typeNews.toString(),
+        image: null as string | null // Aquí guardaremos la imagen en Base64
       };
-    } else {
-      this.enviarNoticia(newsData);
+    
+      if (this.image) {
+        const reader = new FileReader();
+        reader.readAsDataURL(this.image); // Convertir a Base64
+        reader.onload = () => {
+          newsData.image = newsData.image = reader.result as string; // La imagen en Base64
+          this.enviarNoticia(newsData);
+          
+        };
+      } else {
+        this.enviarNoticia(newsData);
+      }
+    } else{
+
+      const newsData = {
+        id: this.id,
+        title: this.newsForm.get("title")?.value,
+        author: null,
+        textNews: this.newsForm.get("content")?.value,
+        dateNews: null,
+        typeNews: null,
+        image: null as string | null // Aquí guardaremos la imagen en Base64
+      };
+    
+      if (this.image) {
+        const reader = new FileReader();
+        reader.readAsDataURL(this.image); // Convertir a Base64
+        reader.onload = () => {
+          newsData.image = newsData.image = reader.result as string; // La imagen en Base64
+          this.updateNews(newsData);
+          
+        };
+      } else {
+        this.updateNews(newsData);
+      }
+
     }
+
+    
   }
   
   enviarNoticia(newsData: any) {
@@ -89,6 +125,21 @@ export class NewsManagementComponent implements OnInit {
       },
       (error) => {
         console.error('Error al agregar la noticia', error);
+      }
+    );
+  }
+
+  updateNews(newsData: any){
+    this.httpProvider.updateNews(newsData).subscribe(
+      (data: any) => {
+        console.log("Respuesta del servidor:", data);
+        if (data?.isSuccess) {
+          console.log('Noticia actualizada correctamente.');
+          this.loadNews();
+        }
+      },
+      (error) => {
+        console.error('Error al actualizar la noticia', error);
       }
     );
   }

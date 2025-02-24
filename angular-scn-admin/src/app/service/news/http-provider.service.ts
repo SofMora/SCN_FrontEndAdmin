@@ -25,6 +25,9 @@ export class HttpProviderService {
   public saveNews(formData: FormData): Observable<any> {
     return this.webApiService.post(httpLink.saveNews,formData);
   }
+  public updateNews(formData: FormData): Observable<any> {
+    return this.webApiService.post(httpLink.saveNews,formData);
+  }
 
   public deleteNewsById(model: any): Observable<any> {
     return this.webApiService.post1(httpLink.deleteNewsById + '/' + model,"" );
