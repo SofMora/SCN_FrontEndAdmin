@@ -1,0 +1,110 @@
+.course-form-container {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .full-width {
+    width: 100%;
+  }
+  
+  .add-button {
+    display: block;
+    margin: 20px auto;
+  }
+
+  h2 {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  /* Estilos del formulario */
+label {
+  display: block; 
+  margin-bottom: 5px;
+  font-weight: bold; 
+}
+
+input[type="text"],
+select,
+textarea {
+  width: 100%;
+  padding: 10px; 
+  margin-bottom: 15px;
+  border: 1px solid #ccc; 
+  border-radius: 4px;
+  box-sizing: border-box; 
+  font-size: 16px; 
+}
+
+textarea {
+  height: 120px; 
+}
+
+button {
+  background-color: #007bff; 
+  color: #fff; 
+  padding: 10px 20px; 
+  border: none;
+  border-radius: 4px; 
+  cursor: pointer; 
+  font-size: 16px; 
+}
+
+button:hover {
+  background-color: #3fcde6; 
+}
+
+button:disabled {
+  background-color: #ccc; 
+  cursor: default; 
+}
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  thead {
+    background-color: #f2f2f2;
+  }
+  
+  th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  th {
+    background-color: #f8f8f8;
+    font-weight: bold;
+  }
+  
+  button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+/* Estilos responsivos */
+@media (max-width: 768px) {
+  .container {
+      padding: 10px; /* Menos relleno en pantallas pequeñas */
+  }
+
+  input[type="text"],
+  select,
+  textarea {
+      font-size: 14px; /* Tamaño de letra más pequeño en pantallas pequeñas */
+  }
+
+  button {
+      font-size: 14px; /* Tamaño de letra más pequeño en pantallas pequeñas */
+  }
+}
+  

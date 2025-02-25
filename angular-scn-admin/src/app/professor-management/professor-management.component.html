@@ -1,0 +1,85 @@
+
+ <h2>Add new Professor</h2>
+ <p>Add, update, and manage professor details in the system.</p>
+<form [formGroup]="form" (ngSubmit)="addProfessor()" class="max-w-lg mx-auto p-6 bg-white shadow-md rounded-lg">
+  <div class="mb-4">
+    <label for="name" class="block text-gray-700 font-bold">Name</label>
+    <input id="name" type="text" formControlName="name" class="w-full p-2 border rounded-lg" />
+  </div>
+
+  <div class="mb-4">
+    <label for="lastName" class="block text-gray-700 font-bold">Last Name</label>
+    <input id="lastName" type="text" formControlName="lastName" class="w-full p-2 border rounded-lg" />
+  </div>
+
+  <div class="mb-4">
+    <label for="email" class="block text-gray-700 font-bold">Email</label>
+    <input id="email" type="email" formControlName="email" class="w-full p-2 border rounded-lg" />
+  </div>
+
+  <div class="mb-4">
+    <label for="username" class="block text-gray-700 font-bold">Username</label>
+    <input id="username" type="text" formControlName="username" class="w-full p-2 border rounded-lg" />
+  </div>
+
+  <div class="mb-4">
+    <label for="password" class="block text-gray-700 font-bold">Password</label>
+    <input id="password" type="password" formControlName="password" class="w-full p-2 border rounded-lg" />
+  </div>
+
+  <div class="mb-4">
+    <label for="description" class="block text-gray-700 font-bold">Description</label>
+    <textarea id="description" formControlName="description" class="w-full p-2 border rounded-lg"></textarea>
+  </div>
+
+  <div class="mb-4">
+    <label for="photo" class="block text-gray-700 font-bold">Photo</label>
+    <input id="photo" type="file" formControlName="photo" class="w-full p-2 border rounded-lg" />
+  </div>
+
+  <div class="mb-4">
+    <label for="socialLink" class="block text-gray-700 font-bold">Social Link</label>
+    <input id="socialLink" type="url" formControlName="socialLink" class="w-full p-2 border rounded-lg" />
+  </div>
+
+  <div class="mb-4">
+    <label for="statusProfessor" class="block text-gray-700 font-bold">Status Professor</label>
+    <select id="statusProfessor" formControlName="statusProfessor" class="w-full p-2 border rounded-lg">
+      <option [value]="true">Activo</option>
+      <option [value]="false">Inactivo</option>
+    </select>
+  </div>
+
+  <button type="submit" [disabled]="form.invalid" class="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-700">
+    Submit
+  </button>
+</form>
+
+<table>
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Last Name</th>
+      <th>Email</th>
+      <th>User Name</th>
+      <th>Actions</th> 
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let professor of professors">
+      <td>{{ professor.id }}</td>
+      <td>{{ professor.name }}</td>
+      <td>{{ professor.lastName }}</td>
+      <td>{{ professor.email }}</td>
+      <td>{{ professor.username }}</td>
+      <td> 
+        <button class="update" (click)="updateProfessor(professor)">Update</button>
+        <button class="delete" (click)="deleteProfessor(professor.id)">Delete</button>
+      </td>
+    </tr>
+    <tr *ngIf="professors.length === 0">
+      <td colspan="10">No Professor Found</td>
+    </tr>
+  </tbody>
+</table>

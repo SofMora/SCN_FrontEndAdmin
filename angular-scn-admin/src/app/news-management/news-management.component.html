@@ -1,0 +1,55 @@
+<div class="container">
+  <h2>Academic and Career News</h2>
+  <p>Reports on academic news and career developments.</p>
+
+  <!-- Formulario de Noticias -->
+  <form [formGroup]="newsForm" (ngSubmit)="saveNews()" class="news-form">
+    <label for="title">Title</label>
+    <input type="text" id="title" formControlName="title" required>
+
+    <label for="content">Content</label>
+    <textarea id="content" formControlName="content" required></textarea>
+
+    <label for="image">Subir Imagen</label>
+    <input type="file" id="image" (change)="onImageUpload($event)">
+
+    <button type="submit" class="button">{{ selectedNews ? 'Actualizar' : 'Publicar' }} News</button>
+  </form>
+
+  <!-- Lista de Noticias -->
+  <h3>News Published</h3>
+  <table class="news-table">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Title</th>
+        <th>Content</th>
+        <th>Date</th>
+        <th>Image</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let news of newsList">
+        <td>{{ news.id }}</td>
+        <td>{{ news.title }}</td>
+        <td>{{ news.textNews }}</td>
+        <td>{{ news.dateNews }}</td>
+        <td>
+          <!-- Mostrar la imagen solo si no es null -->
+          <img *ngIf="news.image" [src]="news.image" alt="news image" width="100" height="100" />
+          <!-- Si no hay imagen, mostrar un texto o imagen predeterminada -->
+          <span *ngIf="!news.image">No image available</span>
+        </td>
+        <td>
+          <button class="edit-btn" (click)="editNews(news)">✏ Edite</button>
+          <button class="delete-btn" (click)="deleteNews(news.id)">🗑 Delete</button>
+        </td>
+      </tr>
+    </tbody
+    
+    >
+  </table>
+</div>
+
+

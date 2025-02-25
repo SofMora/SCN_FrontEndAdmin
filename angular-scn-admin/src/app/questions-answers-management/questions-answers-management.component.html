@@ -1,0 +1,82 @@
+
+  <h2>Admin Q&A</h2>
+<p>Manage and respond to private student inquiries.</p>
+<table>
+  <thead>
+    <tr>
+      <th>Id Q&A</th>
+      <th>Description</th>
+      <th>Author</th>
+      <th>Date</th>
+      <th>Course</th>
+      <th>Type Consult</th>
+      <th>Action</th> 
+    </tr>
+  </thead>
+  <tbody>
+   <!--  <tr *ngFor="let appointmentComment of appointmentComments"> 
+    <tr *ngFor="let appointmentComment of paginatedComments"> -->
+    <tr *ngFor="let appointmentComment of appointmentComments | paginate: { itemsPerPage: itemsPerPage, currentPage: page }">    
+      <td>{{ appointmentComment.Id }}</td>
+      <td>{{ appointmentComment.DescriptionConsult }}</td>
+      <td>{{ appointmentComment.Student }}</td>
+      <td>{{ appointmentComment.DateConsult }}</td>
+      <td>{{ appointmentComment.nameCourse }}</td>
+      <td>{{ appointmentComment.DesTypeConsult }}</td>
+      <td [hidden]="true">{{ appointmentComment.TypeConsult }}</td>
+      <td [hidden]="true">{{ appointmentComment.courseId }}</td>
+      <td [hidden]="true">{{ appointmentComment.studenId }}</td>
+
+      <td> 
+        <button *ngIf="appointmentComment.DesTypeConsult === 'Privada'" class="select-button" (click)="openModal(appointmentComment)">Select</button>
+      </td>
+    </tr>
+    <tr *ngIf="appointmentComments.length === 0">
+      <td colspan="5">No Private Questions Found</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Pagination -->
+<div class="pagination-container">
+  <pagination-controls (pageChange)="page = $event"></pagination-controls>
+</div>
+
+<!-- Modal para mostrar la consulta completa -->
+<div *ngIf="selectedComment" class="modal">
+  <div class="modal-content">
+    <span class="close" (click)="closeModal()">&times;</span>   
+    <h3>Consulta Completa</h3>
+    <p><strong>ID:</strong> {{ selectedComment.Id }}</p>
+    <p><strong>Description:</strong> {{ selectedComment.DescriptionConsult }}</p>
+    <p><strong>ID Student:</strong> {{ selectedComment.studenId }}</p>
+    <p><strong>Author:</strong> {{ selectedComment.Student }}</p>
+    <p><strong>Date:</strong> {{ selectedComment.DateConsult }}</p>
+    <p><strong>ID Course:</strong> {{ selectedComment.courseId }}</p>
+    <p><strong>Course:</strong> {{ selectedComment.nameCourse }}</p>
+    
+
+    <div class="form-container">
+      <label for="admin-response" class="block text-gray-700 font-bold">Admin Response</label>
+      <textarea id="admin-response" [(ngModel)]="response" class="w-full p-2 border rounded-lg"></textarea>
+    </div>
+
+    <button (click)="submitResponse()" class="submit-button">Submit Response</button>
+    
+  </div>
+</div>
+
+
+<!--
+
+<div class="form-container">
+  <label for="admin-response" class="block text-gray-700 font-bold">Admin Response</label>
+  <textarea id="admin-response" formControlName="response" class="w-full p-2 border rounded-lg"></textarea>
+</div>
+
+<button type="submit"  class="submit-button">
+  Submit Response
+</button>
+
+<button (click)="closeModal()" class="cancel-button">Close</button>
+ -->  

@@ -1,0 +1,73 @@
+<h2>Add Course</h2>
+<p>Fill in the details to register a new course.</p>
+<form [formGroup]="form" (ngSubmit)="addCourse()" class="max-w-lg mx-auto p-6 bg-white shadow-md rounded-lg">
+  <div class="mb-4">
+    <label for="name" class="block text-gray-700 font-bold">Name</label>
+    <input id="name" type="text" formControlName="name" class="w-full p-2 border rounded-lg" required />
+  </div>
+
+  <div class="mb-4">
+    <label for="cycle" class="block text-gray-700 font-bold">Cycle</label>
+    <input id="cycle" type="text" formControlName="cycle" class="w-full p-2 border rounded-lg" />
+  </div>
+
+  <div class="mb-4">
+    <label for="description" class="block text-gray-700 font-bold">Description</label>
+    <textarea id="description" formControlName="description" class="w-full p-2 border rounded-lg"></textarea>
+  </div>
+
+  <div class="mb-4">
+    <label for="statusProfessor" class="block text-gray-700 font-bold">Status Course</label>
+    <select id="statusCourse" formControlName="statusCourse" class="w-full p-2 border rounded-lg">
+      <option [value]="true">Active</option>
+      <option [value]="false">Inactive</option>
+    </select>
+  </div>
+
+  <div class="mb-4">
+    <label for="statusProfessor" class="block text-gray-700 font-bold">Professor</label>
+    <select id="idProfessor" formControlName="idProfessor">
+      <option *ngFor="let item of items" [value]="item.id">
+        {{ item.name }}
+      </option>
+    </select>
+  </div>
+
+  <button type="submit" [disabled]="form.invalid"
+    class="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-700">
+    Submit
+  </button>
+</form>
+<h3>List of course</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Cycle</th>
+      <th>Status Course</th>
+      <th>Description</th>
+      <th>Id professor</th>
+      <th>Professor</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let course of courses">
+      <td>{{ course.id }}</td>
+      <td>{{ course.name }}</td>
+      <td>{{ course.cycle }}</td>
+      <td>{{ course.status }}</td>
+      <td>{{ course.description }}</td>
+      <td>{{ course.idProfessor }}</td>
+      <td>{{ course.nameProfessor }}</td>
+      <td>
+        <button (click)="updateCourse(course)">Update</button>
+        <button (click)="deleteCourse(course.id)">Delete</button>
+      </td>
+    </tr>
+    <tr *ngIf="courses.length === 0">
+      <td colspan="10">No Courses Found</td>
+    </tr>
+  </tbody>
+</table>
